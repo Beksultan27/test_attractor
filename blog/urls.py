@@ -13,3 +13,5 @@ urlpatterns = [
     path('tag/<str:slug>/', TagDetail.as_view(), name='tag_detail_url'),
     path('tag/<str:slug>/delete', TagDelete.as_view(), name='tag_delete_url')
 ]
+
+g = 0
