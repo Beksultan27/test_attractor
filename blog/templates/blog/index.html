@@ -1,16 +1,22 @@
 {% extends 'blog/base_blog.html' %}
 
-        {% block title %}
-            POSTS LIST
-        {% endblock %}
+{% block title %}
+    POSTS LIST
+{% endblock %}
 
 
-        {% block content %}
-            <h1 class="mb-5">
-                All posts
-            </h1>
-            {% for post in page_object.object_list %}
-                {% include 'blog/includes/post_card_template.html' %}
-            {% endfor %}
-        {% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <div>
+        <a href="{% url 'post_create_url' %}" type="button" class="btn btn-success">Create post</a>
+        </div>
+
+        <h3 class="mb-5">
+            All posts:
+        </h3>
+        {% for post in page_object.object_list %}
+            {% include 'blog/includes/post_card_template.html' %}
+        {% endfor %}
+    {% endif %}
+{% endblock %}
 

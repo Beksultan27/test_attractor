@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="profiles-update" style="width: 60%; margin:auto">
+  <header class="page-header d-flex">
+    <h3 class="page-heading">Update Profile</h3>
+        </header>
+  <hr>
+  <div class="profile-update-form">
+    <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+      {% if user.id == profile.user_id %}
+      {{ form }}
+      <button type="submit" class="btn btn-success btn-lg">UPDATE PROFILE</button>
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock content %}

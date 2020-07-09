@@ -2,6 +2,7 @@ from django.db import models
 from django.shortcuts import reverse
 from django.utils.text import slugify
 from time import time
+from users.models import User
 
 
 def gen_slug(s):
@@ -13,8 +14,9 @@ class Post(models.Model):
     title = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(max_length=150, blank=True, unique=True)
     body = models.TextField(blank=True, db_index=True)
-    tags = models.ManyToManyField('Tag', blank=True, related_name='posts')
+    categories = models.ManyToManyField('Category', blank=True, related_name='posts')
     date_pub = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_author')
 
     def get_absolute_url(self):
         return reverse('post_detail_url', kwargs={'slug': self.slug})
@@ -37,18 +39,18 @@ class Post(models.Model):
         ordering = ['-date_pub']
 
 
-class Tag(models.Model):
+class Category(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField(max_length=50, unique=True)
 
     def get_absolute_url(self):
-        return reverse('tag_detail_url', kwargs={'slug': self.slug})
+        return reverse('category_detail_url', kwargs={'slug': self.slug})
 
     def get_update_url(self):
-        return reverse('tag_update_url', kwargs={'slug': self.slug})
+        return reverse('category_update_url', kwargs={'slug': self.slug})
 
     def get_delete_url(self):
-        return reverse('tag_delete_url', kwargs={'slug': self.slug})
+        return reverse('category_delete_url', kwargs={'slug': self.slug})
 
     def __str__(self):
         return '{}'.format(self.title)

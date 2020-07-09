@@ -26,7 +26,6 @@
 
 <body>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: darkseagreen">
-    <a class="navbar-brand" href="#">Navbar</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -35,26 +34,19 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'posts_list_url' %}">My posts</a>
+                <a class="nav-link" href="{% url 'posts_list_url' %}">All posts</a>
             </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}{{ user.id }}/detail">Profile</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Log in</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
-                <a class="nav-link" href="">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="{% url 'tags_list_url' %}"
-                   id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Tags
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <a class="nav-link" href="{% url 'categories_list_url' %}">Categories</a>
             </li>
         </ul>
 
@@ -71,7 +63,6 @@
     <div class="row">
         <div class="col-6 offset-md-2">
             {% block content %}
-                КАКОЙ ТО ТЕКСТ
             {% endblock %}
 
             {% if is_paginated %}
@@ -114,8 +105,11 @@
     </div>
 {% endif %}
 
+    {% block body %}
+
+    {% endblock %}
+
+
 </body>
 
 </html>
-{#rarar#}
-{#daawfawfawfawfawfawf#}

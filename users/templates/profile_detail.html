@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="profiles-detail">
+        <header class="page-header d-flex">
+            {% if user.is_authenticated and profile.user == user %}
+                <div class="btn-group">
+                    <a href="{{profile.get_update_url}}" class="btn btn-outline-success">EDIT PROFILE</a>
+                    <a href="{{profile.get_delete_url}}" class="btn btn-danger">DELETE PROFILE</a>
+                </div>
+            {% endif %}
+
+        </header>
+        <hr>
+        <div class="profile-detail-inner d-detail-grid">
+            <div class="text-center">
+                <p class="lead mb-2">Name: {{profile.first_name}} {{ profile.last_name }}</p>
+                <p class="text-muted">Age: {{ profile.age }}</p>
+                <p class="text-muted">Gender: {{ profile.gender }}</p>
+                <p class="text-muted">Bio: {{ profile.bio }}</p>
+            </div>
+        </div>
+            {% if messages %}
+                <div>
+                    <strong>Messages:</strong>
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+    </div>
+{% endblock content %}
+
