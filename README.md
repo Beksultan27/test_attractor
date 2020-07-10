@@ -3,7 +3,9 @@
 This is the test application for IT-attractor
 
 
-## Installation Just clone it and run as any usual django project 
+## Installation 
+
+Just clone it and run as any usual django project 
 
 ```bash 
 python3 manage.py runserver 
