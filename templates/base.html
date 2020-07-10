@@ -33,21 +33,24 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'posts_list_url' %}">All posts</a>
-            </li>
-            {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}{{ user.id }}/detail">Profile</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">Log in</a>
-                </li>
-            {% endif %}
-            <li class="nav-item">
+            <h5 class="nav-item active">
                 <a class="nav-link" href="{% url 'categories_list_url' %}">Categories</a>
-            </li>
+            </h5>
+            <h5 class="nav-item active">
+                <a class="nav-link" href="{% url 'posts_list_url' %}">All posts</a>
+            </h5>
+            {% if user.is_authenticated %}
+                <h5 class="nav-item active">
+                    <a class="nav-link" href="{% url 'index' %}{{ user.id }}/detail">Profile</a>
+                </h5>
+            {% else %}
+                <h5 class="nav-item">
+                    <a class="nav-link" href="{% url 'index' %}">Log in</a>
+                </h5>
+            {% endif %}
+            <h5 class="nav-item">
+                <a class="nav-link" href="">Welcome, {{ user.username }}</a>
+            </h5>
         </ul>
 
 

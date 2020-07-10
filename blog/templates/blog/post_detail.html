@@ -5,6 +5,12 @@
 {% endblock %}
 
 {% block content %}
+    <div class="btn-group">
+        {% if user.id == post.author_id %}
+        <a href="{{ post.get_update_url }}" class="btn btn-info">Edit post</a>
+        <a href="{{ post.get_delete_url }}" class="btn btn-danger">Delete post</a>
+        {% endif %}
+    </div>
     <h1 class="mt-5">
         {{ post.title }}
     </h1>

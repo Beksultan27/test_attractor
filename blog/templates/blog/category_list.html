@@ -5,6 +5,11 @@
 {% endblock %}
 
 {% block content %}
+
+    <div>
+        <a href="{% url 'category_api' %}" type="button" class="btn btn-info">Categories API</a>
+    </div>
+
     {% if user.is_authenticated %}
     <h1 class="mb-5">Categories:</h1>
     {% for category in categories %}

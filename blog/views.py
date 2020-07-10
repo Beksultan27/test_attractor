@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.views.generic import View
-from .models import Post, Category
 from .utils import ObjectDetailMixin, ObjectCreateMixin, ObjectUpdateMixin, ObjectDeleteMixin
-from .forms import CategoryForm, PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .forms import CategoryForm, PostForm
+from .models import Post, Category
+from .serializers import PostSerializer, CategorySerializer
 
 
 def posts_list(request):
@@ -35,6 +39,14 @@ def posts_list(request):
     context = {'page_object': page, 'is_paginated': is_paginated, 'next_url': next_url, 'prev_url': prev_url}
 
     return render(request, 'blog/index.html', context={'page_object': page})
+
+
+class PostList(APIView):
+
+    def get(self, request):
+        posts = Post.objects.all()
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)
 
 
 class PostDetail(ObjectDetailMixin, View):
@@ -90,3 +102,11 @@ class CategoryDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
 def categories_list(request):
     categories = Category.objects.all()
     return render(request, 'blog/category_list.html', context={'categories': categories})
+
+
+class CategoryList(APIView):
+
+    def get(self, request):
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
